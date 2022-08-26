@@ -1,4 +1,4 @@
-package idv.heartisan.test.exam.test.suite;
+package idv.heartisan.test.exam.test.unit.suite;
 
 import idv.heartisan.test.exam.test.unit.entity.TeacherEntityUnitTest;
 import idv.heartisan.test.exam.test.unit.service.TeacherEntityServiceUnitTest;

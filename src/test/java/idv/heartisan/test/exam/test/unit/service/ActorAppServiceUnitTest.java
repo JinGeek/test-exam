@@ -2,6 +2,7 @@ package idv.heartisan.test.exam.test.unit.service;
 
 import idv.heartisan.test.exam.enums.ActorTypeEnum;
 import idv.heartisan.test.exam.enums.GenderEnum;
+import idv.heartisan.test.exam.exceptions.BizException;
 import idv.heartisan.test.exam.pojo.dto.req.RegisterDTO;
 import idv.heartisan.test.exam.service.app.ActorAppService;
 import idv.heartisan.test.exam.service.entity.ActorService;
@@ -15,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
@@ -57,5 +59,18 @@ public class ActorAppServiceUnitTest {
         registerDTO.setActorType(ActorTypeEnum.TEACHER.name());
         actorAppService.register(registerDTO);
         verify(teacherService).newTeacher(any());
+    }
+
+    @DisplayName("密码一致")
+    @Test
+    public void passwordEquality() {
+        RegisterDTO registerDTO = new RegisterDTO();
+        registerDTO.setPhone("1381655545");
+        registerDTO.setActorType(ActorTypeEnum.STUDENT.name());
+        registerDTO.setPassword("123123");
+        registerDTO.setPasswordDuplication("1231237");
+
+        assertThrowsExactly(BizException.class, () -> actorAppService.register(registerDTO));
+        assertThrows(Exception.class, () -> actorAppService.register(registerDTO));
     }
 }
