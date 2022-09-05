@@ -1,6 +1,5 @@
 package idv.heartisan.test.exam.test.integration;
 
-import idv.heartisan.test.exam.test.integration.TestExamApplicationTests;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.SuiteDisplayName;

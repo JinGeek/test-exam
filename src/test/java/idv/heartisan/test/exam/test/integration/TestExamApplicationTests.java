@@ -2,7 +2,6 @@ package idv.heartisan.test.exam.test.integration;
 
 import idv.heartisan.test.exam.TestExamApplication;
 import idv.heartisan.test.exam.dao.mapper.ActorDMOMapper;
-import idv.heartisan.test.exam.web.ActorController;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,9 +14,6 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest(classes = TestExamApplication.class, args = "--spring.config.location=classpath:application-test-yml")
