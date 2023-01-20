@@ -21,6 +21,7 @@ public enum  ErrorEnum {
 
     SYSTEM_ERROR("5-00", "系统错误"),
     OBJECT_NOT_NULL("5-001", "对象不可为空"),
+    SCHEDULER_NOT_EXIST("5-002", "定时任务不存在"),
     ;
 
     /**

@@ -1,0 +1,455 @@
+@startmindmap 服务品控平台整体分析及设计
+header **服务品控平台**
+mainframe 整体分析及设计
+*[#LimeGreen] 服务品控平台
+--[#APPLICATION] 服务阶段
+--- 服务前
+--- 服务中
+--- 服务后
+
+**[#APPLICATION] 流程框架
+***[#LightSalmon] 1. 配置(指标)
+**** 服务定义
+**** 节点定义
+**** 指标定义
+***[#LightSalmon] 2. 采集(数据)
+***[#LightSalmon] 3. 分析(指数)
+***[#LightSalmon] 4. 识别(异常)
+**** 自动
+***** 时效
+***** 评分
+**** 人工
+***** 音频
+***** 图片
+***** 视频
+***[#LightSalmon] 5. 触发(动作)
+
+**[#APPLICATION] 原则
+*** 品控平台的业务对象是流程整体和节点\n不涉及流程分支、逻辑
+*** 未完结的流程实例支持修改指标规则
+*** 已完结的流程实例不支持修改指标规则\n(大数据处理)
+*** 一个流程节点支持多个指标规则
+
+**[#APPLICATION] 目标
+*** 技术目标
+**** 系统可用性 99.99%
+**** 流程异常 5 分钟以内预警
+*** 业务目标
+**** 察过程
+**** 降客诉
+**** 提体验
+**** 优流程
+**** 全反馈
+
+**[#APPLICATION] 陶老师
+*** 时效
+**** 哪个人、联系方式
+**** 是否准时到
+**** 客户什么时候到的
+**** 客户什么时候进诊室的
+**** 客户什么时候离开诊室的
+**** 众包用户什么时候离开的
+*** 过程(需确定是否需要)
+**** 是否代取药
+**** 是否代取报告
+**** 是否代缴费
+*** 其他
+**** 是否统一着装
+**** 是否使用标准话术
+**** 医院熟悉程度
+
+--[#APPLICATION] 核心模型
+--- 定义态
+---- 服务
+---- 阶段
+---- 节点
+---- 指标
+--- 运行态
+---- 服务实例
+---- 节点任务实例
+---- 指数
+
+--[#APPLICATION] 功能
+--- 配置
+---- 服务定义配置
+---- 品控指标配置
+--- 采集
+---- 节点数据采集
+---- 评价数据采集
+--- 分析
+---- 元数据分析
+---- 度量指数生成
+--- 识别
+---- 指数与指标的匹配规则
+---- 异常识别
+--- 触发
+---- 通知触发规则
+----- 触发人员
+----- 触发动作
+---- 短信能力
+---- 邮件能力
+---- 站内信能力
+--- 干预
+---- 电话呼叫
+---- 短信提醒
+---- 消息推送
+--- 报告
+---- 正常服务统计
+---- 异常服务统计
+---- 归档服务统计
+--- 用户
+---- 注册
+---- 登录
+---- 权限管理
+----- 分配
+----- 申请
+----- 审核
+@endmindmap
+
+@startuml 服务品控平台业务流程
+header **服务品控平台**
+mainframe 服务品控平台业务流程
+
+!include <archimate/Archimate>
+sprite $bProcess jar:archimate/business-process
+sprite $tNode jar:archimate/technology-node
+sprite $cComponent jar:archimate/application-component
+sprite $iWorkPackage jar:archimate/implementation-workpackage
+
+Motivation_Requirement(sqa, "服务品控")
+
+Business_Process(flowConfig, "服务流程配置")
+Business_Process(ruleConfig, "服务指标配置")
+Business_Process(exceptionFetch, "异常检索")
+Business_Process(intervene, "动作干预")
+
+Rel_Composition_Down(sqa, flowConfig)
+Rel_Composition_Down(sqa, ruleConfig)
+Rel_Composition_Down(sqa, exceptionFetch)
+Rel_Composition_Down(sqa, intervene)
+
+Rel_Triggering_Right(flowConfig, ruleConfig)
+Rel_Triggering_Right(ruleConfig, exceptionFetch)
+Rel_Triggering_Right(exceptionFetch, intervene)
+
+@enduml
+
+@startuml 服务品控平台系统处理流程
+header **服务品控平台**
+mainframe 服务品控平台系统处理流程
+
+|#LightGoldenRodYellow|履约服务平台|
+start
+:服务节点/状态流转;
+:发送事件数据;
+|服务品控平台|
+:事件数据落库;
+:事件数据分析;
+:生成结果集;
+:识别异常;
+:触发告警;
+:动作干预;
+stop
+
+@enduml
+
+@startuml 实体模型关系
+class "**ServiceDefinition**\n服务定义" as ServiceDefinition #LightPink
+class "**NodeDefinition**\n节点定义" as NodeDefinition #LightPink
+class "**IndicatorDefinition**\n指标定义" as IndicatorDefinition #PaleGreen
+class "**AlertDefinition**\n告警规则定义" as AlertDefinition #PaleGreen
+class "**ServiceInstance**\n服务实例" as ServiceInstance #LightPink
+class "**NodeInstance**\n服务节点实例" as NodeInstance #LightPink
+class "**RawData**\n原数据" as RawData #PaleGreen
+class "**ResultSet**\n结果集" as ResultSet #PaleGreen
+class "**ExceptionInstance**\n异常实例" as ExceptionInstance #PaleGreen
+class "**AlertAction**\n告警行动" as AlertAction  #LightPink
+
+ServiceDefinition o-- "1...n" NodeDefinition
+NodeDefinition o--"0...n " IndicatorDefinition
+ServiceDefinition o--"0...n " IndicatorDefinition
+NodeDefinition o--"0...n " AlertDefinition
+ServiceDefinition o--"0...n " AlertDefinition
+
+ServiceInstance o-- "1...n" NodeInstance
+NodeInstance o-- "1...n" RawData
+NodeInstance *-- "0...n" ExceptionInstance
+ExceptionInstance *-- "0...n" AlertAction
+ServiceInstance *-- "1...n" ResultSet
+
+@enduml
+
+@startuml 实体模型设计---定义态
+
+class "**ServiceDefinition**\n服务定义" as ServiceDefinition #LightPink {
+    ..*重要属性..
+    - **String name** : 服务名称
+    - **List<String> serviceCode** : 服务项代码
+    - **MonitorStatusEnum status** : 监控状态
+    - **List<NodeDefinition> nodes** : 节点列表
+    - **List<AlarmDefinition> nodes** : 告警规则列表
+    --*重要方法--
+    获取节点列表
+    + **List<NodeDefinition> getNodes()**
+
+    打开/关闭服务品控
+    + **void openMonitor()**
+    + **void closeMonitor()**
+
+    服务是否正在进行品控
+    + **boolean isMonitored()**
+
+}
+
+class "**ServiceNodeDefinition**\n节点定义" as ServiceNodeDefinition #LightPink {
+    ..*重要属性..
+    - **String name** : 节点名称
+    - **String nodeCode** : 节点代码
+    - **String nodeSeq** : 节点顺序
+    - **Long serviceDefinitionId** : 服务定义ID
+    - **MonitorStatusEnum monitorStatus** : 监控状态
+    - **ServicePhaseEnum servicePhase** : 服务阶段
+    - **List<Indicator> indicators** : 指标列表
+    --*重要方法--
+    获取指标列表
+    + **List<Indicator> getIndicators()**
+
+    打开/关闭节点品控
+    + **void openMonitor()**
+    + **void closeMonitor()**
+
+    节点是否正在进行品控
+    + **boolean isMonitored()**
+}
+
+class "**IndicatorDefinition**\n指标定义" as IndicatorDefinition #PaleGreen {
+    ..*重要属性..
+    - **String name** : 指标名称
+    - **String indicatorCode** : 指标代码
+    - **String nodeCode** : 节点代码
+    - **Long serviceDefinitionId** : 服务定义ID
+    - **IndicatorTypeEnum indicatorType** : 指标类型
+    - **Long timeLimit** : 服务时效阈值
+    - **Double score** : 评分阈值
+    - **List<String> checkList** : 检查项（针对人工识别）
+    --*重要方法--
+    指标定义是否完备
+    + **boolean isQualified()**
+
+    是否自动品控节点
+    + **boolean isAutomatic()**
+
+    增加/移除检查项
+    + **void addCheckItem(String item)**
+    + **void removeCheckItem(String item)**
+}
+class "**AlarmDefinition**\n告警规则定义" as AlarmDefinition #PaleGreen {
+    ..*重要属性..
+    - **List<String> supervisors** : 监督人
+    - **List<AlertEnum> alerts** : 告警方式
+
+    --*重要方法--
+    增加/移除监督人
+    + **void addSupervisor(String um)**
+    + **void removeSupervisor(String um)**
+
+    增加/移除告警方式
+    + **void addAlert(AlertEnum alert)**
+    + **void removeAlert(AlertEnum alert)**
+}
+
+enum "**MonitorStatusEnum**\n监控状态" as MonitorStatusEnum #PowderBlue {
+    **OPEN** : 打开
+    **CLOSE** : 关闭
+}
+
+enum "**ServicePhaseEnum**\n服务阶段" as ServicePhaseEnum #PowderBlue {
+    **FRONT** : 服务前
+    **MIDDLE** : 服务中
+    **BACK** : 服务后
+}
+
+enum "**IndicatorTypeEnum**\n指标类型" as IndicatorTypeEnum #PowderBlue {
+    **EFFICIENCY** : 时效指标
+    **RATE** : 评分指标
+    **MANUAL** : 人工指标
+}
+
+enum "**AlertEnum**\n告警方式" as AlertEnum #PowderBlue {
+    **INBOX** : 站内信
+    **EMAIL** : 邮件
+    **KUAI_PING** : 快乐平安
+    **MESSAGE_PUSH** : APP 消息推送
+}
+
+ServiceDefinition o-- "1...n" ServiceNodeDefinition
+ServiceNodeDefinition o--"0...n " IndicatorDefinition
+ServiceDefinition o--"0...n " AlarmDefinition
+
+MonitorStatusEnum -[hidden]- ServicePhaseEnum
+ServicePhaseEnum -[hidden]- IndicatorTypeEnum
+IndicatorTypeEnum -[hidden]- AlertEnum
+@enduml
+
+@startuml 实体模型设计---运行态
+class "**ServiceInstance**\n服务实例" as ServiceInstance #LightPink {
+    ..*重要属性..
+    - **String workOrderId** : 工单号
+    - **Long serviceDefinitionId** : 服务定义ID
+    - **ServiceInstanceStatusEnum status** : 服务实例状态
+    - **List<ServiceNodeInstance> nodes** : 节点列表
+    - **double rate** : 评分
+    --*重要方法--
+    获取异常节点
+    + **List<ServiceNodeInstance> fetchExceptionalNodes()**
+}
+
+class "**ServiceNodeInstance**\n服务节点实例" as ServiceNodeInstance #LightPink {
+    ..*重要属性..
+    - **String workOrderId** : 工单号
+    - **String nodeCode** : 服务节点代码
+    - **DateTime startTime** : 开始时间
+    - **DateTime endTime** : 结束时间
+    - **double rate** : 评分
+    - **Long efficiencyIndex** : 时效指数
+    - **double rateIndex** : 评分指数
+    - **Pair<String, CheckListStatusEnum> checkListIndex** : 人工指数
+    - **List<ServiceExceptionInstance> exceptionList** : 服务节点异常列表
+    --*重要方法--
+    时效指数计算
+    + **Long efficiencyIndexCalculation()**
+
+    评分指数计算
+    + **double rateIndexCalculation()**
+
+    人工指数计算
+    + **double rateIndexCalculation()**
+
+    是否有异常
+    + **boolean isExceptional()**
+
+    添加服务异常
+    + **void addException(ServiceExceptionInstance exception)**
+
+}
+
+class "**ServiceExceptionInstance**\n异常实例" as ServiceExceptionInstance #PaleGreen {
+    ..*重要属性..
+    - **String ServiceNodeInstanceId** : 服务节点实例 ID
+    - **String nodeCode** : 服务节点代码
+    - **String indicatorCode** : 指标代码
+    - **ServiceExceptionStatusEnum status** : 服务异常状态
+    - **Strring operator** : 处理人
+    --*重要方法--
+    关闭异常
+    + **void close(String um)**
+}
+enum "**ServiceInstanceStatusEnum**\n服务实例状态" as ServiceInstanceStatusEnum #PowderBlue {
+    **IN_PROGRESS** : 正常进行中
+    **IN_PROGRESS_WARNING** : 服务异常（服务进行中）
+    **DONE** : 正常完成
+    **DONE_WARNING** : 服务异常（服务已完成）
+}
+enum "**CheckListStatusEnum**\n人工检查项状态" as CheckListStatusEnum #PowderBlue {
+    **IN_PROGRESS** : 正常进行中
+    **IN_PROGRESS_WARNING** : 服务异常（服务进行中）
+    **DONE** : 正常完成
+    **DONE_WARNING** : 服务异常（服务已完成）
+}
+enum "**ServiceExceptionStatusEnum**\n服务异常状态" as ServiceExceptionStatusEnum #PowderBlue {
+    **OPENED** : 未处理
+    **DOING** : 处理中
+    **PENDING** : 搁置中
+    **CLOSED** : 已关闭
+}
+
+ServiceInstance o-- " * " ServiceNodeInstance
+ServiceNodeInstance o-- " * " ServiceExceptionInstance
+ServiceInstanceStatusEnum -[hidden]- CheckListStatusEnum
+CheckListStatusEnum -[hidden]- ServiceExceptionStatusEnum
+@enduml
+
+@startuml 领域服务
+class "① **DataCollectionDService**\n数据采集服务" as DataCollectionDService {
+    --*重要方法--
+    数据采集
+    + **void collect (PrimitiveData data)**
+}
+
+class "② **DataAnalysisDService**\n数据分析服务" as DataAnalysisDService {
+    --*重要方法--
+    数据分析
+    + **void analyse (ServiceNodeInstance serviceNodeInstance)**
+}
+
+class "③ **ServiceExceptionRecognitionDService**\n异常识别服务" as ServiceExceptionRecognitionDService {
+    --*重要方法--
+    服务异常识别
+    + **void recognize (IndicatorDefinition indicator**, \n**ServiceNodeInstance serviceNodeInstance)**
+}
+
+class "④ **AlarmDService**\n告警服务" as AlarmDService {
+    --*重要方法--
+    发出告警
+    + **void alert (AlarmDefinition alarmDefinition**, \n**ServiceExceptionInstance exception)**
+}
+
+class "⑤ **InterventionDService**\n干预服务" as InterventionDService {
+    --*重要方法--
+    异常干预
+    + **void intervene (ServiceExceptionInstance exception)**
+}
+
+DataCollectionDService -[hidden]- DataAnalysisDService
+DataAnalysisDService -[hidden]- ServiceExceptionRecognitionDService
+AlarmDService -[hidden]- InterventionDService
+@enduml
+
+@startuml 应用架构
+!include <archimate/Archimate>
+sprite $bProcess jar:archimate/business-process
+sprite $tNode jar:archimate/technology-node
+sprite $cComponent jar:archimate/application-component
+sprite $iWorkPackage jar:archimate/implementation-workpackage
+
+
+title 应用架构
+
+actor 用户 as user
+node 服务履约平台 as commit #PowderBlue;Line:Orchid;line.dashed;text:Peru
+node  sqa as "服务品控平台" #TECHNOLOGY {
+    Application_Component(console, "后台管理(前端)")
+    Application_Component(sqaCore, "核心服务(后端)")
+    database mysql
+}
+
+console -u-> sqaCore
+sqaCore .r. mysql
+sqaCore <-l- commit : 发送服务流程数据
+user -u-> console : 配置指标规则
+@enduml
+
+@startuml 系统时序图
+skinparam ResponseMessageBelowArrow true
+
+actor "<font color=Black>客户/众包/客户经理" as c1
+participant 履约服务平台 as s1
+participant 服务品控平台 as cris
+queue "消息队列" as q1
+
+autoactivate on
+autonumber 1 1 "<font color=Violet><b>[A-00]"
+c1 -> s1 : 履约操作
+c1 <-- s1 : 正常响应
+
+autonumber 1 1 "<font color=Chocolate><b>[B-00]"
+s1 -> q1 : 发送原数据
+s1 <--q1 : ack
+cris -> q1 : 拉取原数据(pull)
+cris <-- q1 : 返回原数据
+cris -> cris : 数据过滤
+cris -> cris : 数据分析
+cris -> cris : 异常识别
+cris -> cris : 触发告警
+
+@enduml
