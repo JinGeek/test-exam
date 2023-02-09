@@ -2,9 +2,13 @@ package idv.heartisan.test.exam.config;
 
 import com.alibaba.fastjson.JSONObject;
 import idv.heartisan.test.exam.enums.ErrorEnum;
+import idv.heartisan.test.exam.event.ExceptionEvent;
 import idv.heartisan.test.exam.exceptions.BizException;
 import idv.heartisan.test.exam.pojo.R;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -23,6 +27,9 @@ import java.util.ArrayList;
 @Slf4j
 public class GlobalControllerAdvice {
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public R handleException(MethodArgumentNotValidException e) {
@@ -40,6 +47,7 @@ public class GlobalControllerAdvice {
     public R handleException(BizException e) {
         log.error("handle biz exception with: {}", e.getMessage());
         e.printStackTrace();
+        applicationContext.publishEvent(new ExceptionEvent(e));
         return R.error(e.getErrorEnum());
     }
 
@@ -48,6 +56,7 @@ public class GlobalControllerAdvice {
     public R handleException(Exception e) {
         log.error("handle system exception with: {}", e.getMessage());
         e.printStackTrace();
+        applicationContext.publishEvent(new ExceptionEvent(ErrorEnum.SYSTEM_ERROR));
         return R.error(ErrorEnum.SYSTEM_ERROR);
     }
 
@@ -59,6 +68,7 @@ public class GlobalControllerAdvice {
                 errMsgList.add(errMsg);
             }
         }
+        applicationContext.publishEvent(new ExceptionEvent(ErrorEnum.PARAM_INVALID.code, JSONObject.toJSONString(errMsgList)));
         return R.error(ErrorEnum.PARAM_INVALID.code, JSONObject.toJSONString(errMsgList));
     }
 }
