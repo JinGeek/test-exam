@@ -6,4 +6,4 @@ CREATE TABLE `error_log`
     `created_date` datetime DEFAULT CURRENT_TIMESTAMP comment '创建时间',
     `updated_date` datetime DEFAULT NULL comment '修改时间',
     PRIMARY KEY (`id`)
-) comment "错误日志表";
+);

@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  *  Mapper 接口
  * </p>
  *
- * @author jinqi
- * @since 2022-08-11
+ * @author Jin Qi
+ * @since 2023-05-25
  */
 public interface ExamDMOMapper extends BaseMapper<ExamDMO> {
 

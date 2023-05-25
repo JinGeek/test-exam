@@ -3,7 +3,7 @@ spring:
     enabled: true
   datasource:
     druid:
-      url: jdbc:h2:mem:test-exam?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      url: jdbc:mysql://localhost:3306/test-exam?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       username: root
       password: root
   banner:
@@ -32,4 +32,3 @@ mybatis-plus:
     db-config:
       # 全局默认主键类型
       id-type: auto
-

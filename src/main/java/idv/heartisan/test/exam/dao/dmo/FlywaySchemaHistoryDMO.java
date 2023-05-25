@@ -11,8 +11,8 @@ import lombok.Setter;
  * 
  * </p>
  *
- * @author jinqi
- * @since 2022-08-12
+ * @author Jin Qi
+ * @since 2023-05-25
  */
 @Getter
 @Setter

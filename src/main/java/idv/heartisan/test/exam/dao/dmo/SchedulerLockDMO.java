@@ -13,8 +13,8 @@ import lombok.Setter;
  * 定时任务锁
  * </p>
  *
- * @author jinqi
- * @since 2023-01-19
+ * @author Jin Qi
+ * @since 2023-05-25
  */
 @Getter
 @Setter

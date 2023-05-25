@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 错误日志表 Mapper 接口
  * </p>
  *
- * @author jinqi
- * @since 2023-02-09
+ * @author Jin Qi
+ * @since 2023-05-25
  */
 public interface ErrorLogDMOMapper extends BaseMapper<ErrorLogDMO> {
 

@@ -13,8 +13,8 @@ import lombok.Setter;
  * 错误日志表
  * </p>
  *
- * @author jinqi
- * @since 2023-02-09
+ * @author Jin Qi
+ * @since 2023-05-25
  */
 @Getter
 @Setter

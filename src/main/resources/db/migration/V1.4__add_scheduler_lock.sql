@@ -4,6 +4,7 @@ CREATE TABLE `scheduler_lock`
     name        varchar(20)         not null comment '学号',
     `execution_time` datetime DEFAULT CURRENT_TIMESTAMP comment '任务可执行事件',
     PRIMARY KEY (`id`)
-) comment "定时任务锁";
+) ;
 
-insert into scheduler_lock (name, execution_time) values ('test', now());
+insert into scheduler_lock (name, execution_time) values ('test1', now());
+insert into scheduler_lock (name, execution_time) values ('test2', now());

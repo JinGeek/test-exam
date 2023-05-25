@@ -22,6 +22,9 @@ public class ExceptionEvent {
     }
 
     public ExceptionEvent(ErrorEnum errorEnum) {
+        if (errorEnum == null) {
+            errorEnum = ErrorEnum.SYSTEM_ERROR;
+        }
         this.code = errorEnum.code;
         this.msg = errorEnum.errMsg;
     }
