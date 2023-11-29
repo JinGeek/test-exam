@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,8 +35,8 @@ public class TeacherEntityServiceUnitTest {
     @DisplayName("检查教师编号是否合格")
     @Test
     public void isQualifiedTest() {
-        TeacherDMO teacherDMO = new TeacherDMO();
-        teacherDMO.setCreatedDate(new Date(System.currentTimeMillis() - 1000 * 60 * 60 * 24));
+        TeacherDMO teacherDMO = TeacherDMO.create();
+        teacherDMO.setCreatedDate(LocalDateTime.now().minusDays(1));
         when(teacherDMOMapper.selectOne(any())).thenReturn(teacherDMO);
         assertTrue(teacherService.isQualified("11"));
         when(teacherDMOMapper.selectOne(any())).thenReturn(null);

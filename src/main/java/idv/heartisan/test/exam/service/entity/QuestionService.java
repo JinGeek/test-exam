@@ -29,7 +29,7 @@ public class QuestionService {
     private QuestionDMOMapper questionDMOMapper;
 
     /**
-     * 新建题目
+     * 新建试题
      *
      * @param question
      */
@@ -39,7 +39,7 @@ public class QuestionService {
     }
 
     /**
-     * 根据试卷 ID 获取所有题目
+     * 根据试卷 ID 获取所有试题
      *
      * @param examId
      * @return

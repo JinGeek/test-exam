@@ -3,7 +3,7 @@ package idv.heartisan.test.exam.entity;
 import lombok.Data;
 
 /**
- * 题目实体
+ * 试题实体
  *
  * @author Jin Qi
  * @date 2022/7/21
@@ -13,7 +13,7 @@ import lombok.Data;
 public class Question {
 
     /**
-     * 题目ID
+     * 试题ID
      */
     private Long id;
 
@@ -23,7 +23,7 @@ public class Question {
     private Long examId;
 
     /**
-     * 题目内容
+     * 试题内容
      */
     private String content;
 

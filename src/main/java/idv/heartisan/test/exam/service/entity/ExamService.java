@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
+
 /**
  * @author Jin Qi
  * @date 2022/8/11
@@ -27,7 +29,7 @@ public class ExamService {
     @Autowired
     private ExamDMOMapper examDMOMapper;
 
-    public Long newExam(Exam exam) {
+    public BigInteger newExam(Exam exam) {
         LambdaQueryWrapper<ExamDMO> condition = new QueryWrapper<ExamDMO>()
                 .lambda()
                 .eq(ExamDMO::getName, exam.getName());

@@ -1,43 +1,43 @@
 package idv.heartisan.test.exam.dao.dmo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigInteger;
+import java.time.LocalDateTime;
+import com.mybatisflex.core.activerecord.Model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
- * <p>
- * 
- * </p>
+ *  实体类。
  *
- * @author Jin Qi
- * @since 2023-05-25
+ * @author heartisan
+ * @since 2023-11-26
  */
-@Getter
-@Setter
-@TableName("answer_record")
-public class AnswerRecordDMO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Accessors(chain = true)
+@Data(staticConstructor = "create")
+@EqualsAndHashCode(callSuper = true)
+@Table(value = "answer_record")
+public class AnswerRecordDMO extends Model<AnswerRecordDMO> {
 
     /**
      * 自增 ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    @Id(keyType = KeyType.Auto)
+    private BigInteger id;
 
     /**
      * 考试 ID
      */
-    private Long examRecordId;
+    private BigInteger examRecordId;
 
     /**
      * 题目 ID
      */
-    private Long questionId;
+    private BigInteger questionId;
 
     /**
      * 正确答案
@@ -52,12 +52,11 @@ public class AnswerRecordDMO implements Serializable {
     /**
      * 创建时间
      */
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     /**
      * 修改时间
      */
-    private Date updatedDate;
-
+    private LocalDateTime updatedDate;
 
 }

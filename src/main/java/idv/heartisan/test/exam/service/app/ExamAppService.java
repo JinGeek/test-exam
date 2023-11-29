@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -60,7 +61,7 @@ public class ExamAppService {
     @Autowired
     private AnswerRecordService answerRecordService;
 
-    public R<Long> createExam(ExamCreationDTO examCreationDTO) {
+    public R<BigInteger> createExam(ExamCreationDTO examCreationDTO) {
         // 1. 教师编号校验
         if (!teacherService.isQualified(examCreationDTO.getTeacherNum())) {
             throw new BizException(ErrorEnum.TEACH_NUM_NOT_QUALIFIED);
@@ -68,7 +69,7 @@ public class ExamAppService {
 
         // 2. 创建试卷
         Exam exam = ExamAssembler.convert(examCreationDTO);
-        Long id = examService.newExam(exam);
+        BigInteger id = examService.newExam(exam);
         return R.ok(id);
     }
 
@@ -82,23 +83,23 @@ public class ExamAppService {
             throw new BizException(ErrorEnum.TEACHER_UNAUTHORIZED);
         }
 
-        // 2. 创建题目
+        // 2. 创建试题
         Question question = QuestionAssembler.convert(questionCreationDTO);
         questionService.newQuestion(question);
         return R.ok(question.getId());
     }
 
-    public  R<Long> autoCreateExam(ExamAutoCreationDTO examAutoCreationDTO) {
+    public  R<BigInteger> autoCreateExam(ExamAutoCreationDTO examAutoCreationDTO) {
         // 1. 创建试卷
         ExamCreationDTO examCreationDTO = DozerUtil.map(examAutoCreationDTO, ExamCreationDTO.class);
-        R<Long> examResult = createExam(examCreationDTO);
+        R<BigInteger> examResult = createExam(examCreationDTO);
 
-        // 2. 创建题目
+        // 2. 创建试题
         List<Pair<String, String>> questionList = genQuestions(examAutoCreationDTO.getSize());
         for (int i = 0; i < examAutoCreationDTO.getSize(); i++) {
             Pair<String, String> pair = questionList.get(i);
             Question question  = new Question();
-            question.setExamId(examResult.getContent());
+            question.setExamId(examResult.getContent().longValue());
             question.setContent(pair.getLeft());
             question.setExpectedValue(pair.getRight());
             questionService.newQuestion(question);
@@ -119,9 +120,9 @@ public class ExamAppService {
         }
         // 2.2 保存考试记录
         ExamRecord examRecord = ExamRecordAssembler.convert(fakeExaminationDTO);
-        Long examRecordId = examRecordService.newExamRecord(examRecord);
+        BigInteger examRecordId = examRecordService.newExamRecord(examRecord);
         List<Question> questionList = questionService.queryByExamId(fakeExaminationDTO.getExamId());
-        List<AnswerRecord> answerRecordList = genFakeAnswer(questionList, examRecordId);
+        List<AnswerRecord> answerRecordList = genFakeAnswer(questionList, examRecordId.longValue());
         answerRecordService.batchInsert(answerRecordList);
         examRecord.setAnswerRecords(answerRecordList);
         ExaminationResultDTO examinationResultDTO = ExaminationResultDTO.builder()

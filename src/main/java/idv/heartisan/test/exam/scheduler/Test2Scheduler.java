@@ -14,7 +14,7 @@ public class Test2Scheduler extends CommonScheduler {
 
     public int seq = 2;
 
-    @Scheduled(fixedDelay = 5 * 1000)
+//    @Scheduled(fixedDelay = 5 * 1000)
     public void call() {
         super.call();
     }

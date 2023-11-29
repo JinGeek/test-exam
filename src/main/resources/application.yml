@@ -3,17 +3,20 @@ spring:
     enabled: true
   datasource:
     druid:
-      url: jdbc:h2:mem:test-exam?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      url: jdbc:mysql://localhost:3306/test-exam?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       username: root
       password: root
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   banner:
     location: banner.txt
 server:
   servlet:
-    context-path: /test-exam
+    context-path: /test_exam
 
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath:/mapper2/*Mapper.xml
   check-config-location: true
   configuration:
     # Mybatis一级缓存，默认为 SESSION。
@@ -32,4 +35,3 @@ mybatis-plus:
     db-config:
       # 全局默认主键类型
       id-type: auto
-

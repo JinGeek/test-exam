@@ -1,33 +1,33 @@
 package idv.heartisan.test.exam.dao.dmo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigInteger;
+import java.time.LocalDateTime;
+import com.mybatisflex.core.activerecord.Model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
- * <p>
- * 错误日志表
- * </p>
+ *  实体类。
  *
- * @author Jin Qi
- * @since 2023-05-25
+ * @author heartisan
+ * @since 2023-11-26
  */
-@Getter
-@Setter
-@TableName("error_log")
-public class ErrorLogDMO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Accessors(chain = true)
+@Data(staticConstructor = "create")
+@EqualsAndHashCode(callSuper = true)
+@Table(value = "error_log")
+public class ErrorLogDMO extends Model<ErrorLogDMO> {
 
     /**
      * 自增 ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    @Id(keyType = KeyType.Auto)
+    private BigInteger id;
 
     /**
      * 错误码
@@ -42,12 +42,11 @@ public class ErrorLogDMO implements Serializable {
     /**
      * 创建时间
      */
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     /**
      * 修改时间
      */
-    private Date updatedDate;
-
+    private LocalDateTime updatedDate;
 
 }

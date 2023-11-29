@@ -1,6 +1,8 @@
 package idv.heartisan.test.exam.pojo;
 
 import idv.heartisan.test.exam.enums.ErrorEnum;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -11,6 +13,7 @@ import lombok.Data;
  */
 
 @Data
+@ApiModel("接口返回对象")
 public class R<T> {
 
     /**
@@ -21,16 +24,20 @@ public class R<T> {
     /**
      * 返回代码，默认赋值成功代码值
      */
+    @ApiModelProperty(value = "返回代码", example = "2-00")
     private String code = SUCCESS_CODE;
+
 
     /**
      * 错误消息
      */
+    @ApiModelProperty(value = "错误消息", example = "")
     private String errMsg;
 
     /**
      * 具体返回内容
      */
+    @ApiModelProperty(value = "具体返回内容", example = "")
     private T content;
 
     /**

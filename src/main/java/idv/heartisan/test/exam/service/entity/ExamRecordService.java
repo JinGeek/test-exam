@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
+
 /**
  * @author Jin Qi
  * @date 2022/8/17
@@ -33,7 +35,7 @@ public class ExamRecordService {
         return examRecordDMO != null;
     }
 
-    public Long newExamRecord(ExamRecord examRecord) {
+    public BigInteger newExamRecord(ExamRecord examRecord) {
         ExamRecordDMO examRecordDMO = ExamRecordAssembler.convert(examRecord);
         examRecordDMOMapper.insert(examRecordDMO);
         return examRecordDMO.getId();

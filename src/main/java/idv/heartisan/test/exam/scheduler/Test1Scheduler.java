@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
  * @author Jin Qi
  * @date 2023/2/3
  */
-@Component
+//@Component
 @Slf4j
 public class Test1Scheduler extends CommonScheduler {
 
     public int seq = 1;
 
-    @Scheduled(fixedDelay = 5 * 1000)
+//    @Scheduled(fixedDelay = 5 * 1000)
     public void call () {
         super.call();
     }

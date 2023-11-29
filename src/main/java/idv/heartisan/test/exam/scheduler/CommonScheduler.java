@@ -27,22 +27,22 @@ public abstract class CommonScheduler {
     @Transactional
     public void call() {
         log.info("The call time is: {}", new Date());
-        SchedulerLockDMO schedulerLockDMO = schedulerLockDMOMapper.getByName(getTaskName());
-        if (schedulerLockDMO == null) {
-            // 定时任务不存在测报错
-            throw new BizException(ErrorEnum.SCHEDULER_NOT_EXIST);
-        }
-
-        // 当前时间晚于任务可执行时间则执行任务
-        if (new Date().getTime() >= schedulerLockDMO.getExecutionTime().getTime()) {
-            // 具体业务逻辑
-            log.info("do something...");
-            execute();
-
-            schedulerLockDMO.setExecutionTime(new Date(new Date().getTime() + getPeriod()));
-            log.info("set up next execution time: {}", schedulerLockDMO.getExecutionTime());
-            schedulerLockDMOMapper.updateById(schedulerLockDMO);
-        }
+//        SchedulerLockDMO schedulerLockDMO = schedulerLockDMOMapper.getByName(getTaskName());
+//        if (schedulerLockDMO == null) {
+//            // 定时任务不存在测报错
+//            throw new BizException(ErrorEnum.SCHEDULER_NOT_EXIST);
+//        }
+//
+//        // 当前时间晚于任务可执行时间则执行任务
+//        if (new Date().getTime() >= schedulerLockDMO.getExecutionTime().getTime()) {
+//            // 具体业务逻辑
+//            log.info("do something...");
+//            execute();
+//
+//            schedulerLockDMO.setExecutionTime(new Date(new Date().getTime() + getPeriod()));
+//            log.info("set up next execution time: {}", schedulerLockDMO.getExecutionTime());
+//            schedulerLockDMOMapper.updateById(schedulerLockDMO);
+//        }
 
     }
 

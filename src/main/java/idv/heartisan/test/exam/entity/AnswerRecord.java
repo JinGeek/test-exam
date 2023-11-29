@@ -21,7 +21,7 @@ public class AnswerRecord {
     private Long id;
 
     /**
-     * 题目 ID
+     * 试题 ID
      */
     private Long questionId;
 
