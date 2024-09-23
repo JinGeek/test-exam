@@ -1,12 +1,13 @@
-package idv.heartisan.test.exam.service.app;
+package idv.heartisan.test.exam.service;
 
 import idv.heartisan.test.exam.assembler.ExamAssembler;
 import idv.heartisan.test.exam.assembler.ExamRecordAssembler;
 import idv.heartisan.test.exam.assembler.QuestionAssembler;
-import idv.heartisan.test.exam.entity.AnswerRecord;
-import idv.heartisan.test.exam.entity.Exam;
-import idv.heartisan.test.exam.entity.ExamRecord;
-import idv.heartisan.test.exam.entity.Question;
+import idv.heartisan.test.exam.domain.entity.AnswerRecord;
+import idv.heartisan.test.exam.domain.entity.Exam;
+import idv.heartisan.test.exam.domain.entity.ExamRecord;
+import idv.heartisan.test.exam.domain.entity.Question;
+import idv.heartisan.test.exam.domain.service.*;
 import idv.heartisan.test.exam.enums.ErrorEnum;
 import idv.heartisan.test.exam.exceptions.BizException;
 import idv.heartisan.test.exam.pojo.R;
@@ -16,7 +17,6 @@ import idv.heartisan.test.exam.pojo.dto.req.FakeExaminationDTO;
 import idv.heartisan.test.exam.pojo.dto.req.QuestionCreationDTO;
 import idv.heartisan.test.exam.pojo.dto.resp.ExamScoreDTO;
 import idv.heartisan.test.exam.pojo.dto.resp.ExaminationResultDTO;
-import idv.heartisan.test.exam.service.entity.*;
 import idv.heartisan.test.exam.utils.DozerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.ImmutablePair;

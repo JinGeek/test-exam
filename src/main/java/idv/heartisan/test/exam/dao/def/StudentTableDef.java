@@ -7,7 +7,7 @@ import com.mybatisflex.core.table.TableDef;
  *  表定义层。
  *
  * @author heartisan
- * @since 2023-11-26
+ * @since 2023-11-29
  */
 public class StudentTableDef extends TableDef {
 

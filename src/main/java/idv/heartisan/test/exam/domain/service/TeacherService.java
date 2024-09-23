@@ -1,4 +1,4 @@
-package idv.heartisan.test.exam.service.entity;
+package idv.heartisan.test.exam.domain.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import idv.heartisan.test.exam.assembler.TeacherAssembler;
 import idv.heartisan.test.exam.dao.dmo.TeacherDMO;
 import idv.heartisan.test.exam.dao.mapper.TeacherDMOMapper;
-import idv.heartisan.test.exam.entity.Teacher;
+import idv.heartisan.test.exam.domain.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

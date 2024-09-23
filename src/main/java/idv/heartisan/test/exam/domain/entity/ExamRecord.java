@@ -1,4 +1,4 @@
-package idv.heartisan.test.exam.entity;
+package idv.heartisan.test.exam.domain.entity;
 
 import lombok.Data;
 import org.springframework.util.CollectionUtils;

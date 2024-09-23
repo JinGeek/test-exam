@@ -1,18 +1,16 @@
 package idv.heartisan.test.exam.dao.impl;
 
+import com.mybatisflex.spring.service.impl.ServiceImpl;
 import idv.heartisan.test.exam.dao.dmo.ErrorLogDMO;
 import idv.heartisan.test.exam.dao.mapper.ErrorLogDMOMapper;
 import idv.heartisan.test.exam.dao.ErrorLogDAO;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>
- * 错误日志表 服务实现类
- * </p>
+ *  服务层实现。
  *
- * @author Jin Qi
- * @since 2023-05-25
+ * @author heartisan
+ * @since 2023-11-29
  */
 @Service
 public class ErrorLogDAOImpl extends ServiceImpl<ErrorLogDMOMapper, ErrorLogDMO> implements ErrorLogDAO {

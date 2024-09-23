@@ -1,4 +1,4 @@
-package idv.heartisan.test.exam.entity;
+package idv.heartisan.test.exam.domain.entity;
 
 import idv.heartisan.test.exam.enums.GenderEnum;
 import lombok.Data;

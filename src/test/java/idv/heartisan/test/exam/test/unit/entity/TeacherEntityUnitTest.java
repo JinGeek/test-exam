@@ -1,6 +1,6 @@
 package idv.heartisan.test.exam.test.unit.entity;
 
-import idv.heartisan.test.exam.entity.Teacher;
+import idv.heartisan.test.exam.domain.entity.Teacher;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

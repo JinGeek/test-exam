@@ -1,6 +1,6 @@
 package idv.heartisan.test.exam.pojo.dto.resp;
 
-import idv.heartisan.test.exam.entity.AnswerRecord;
+import idv.heartisan.test.exam.domain.entity.AnswerRecord;
 import lombok.Builder;
 import lombok.Data;
 

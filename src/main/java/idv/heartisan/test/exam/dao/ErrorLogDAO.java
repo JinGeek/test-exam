@@ -1,15 +1,13 @@
 package idv.heartisan.test.exam.dao;
 
+import com.mybatisflex.core.service.IService;
 import idv.heartisan.test.exam.dao.dmo.ErrorLogDMO;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
- * 错误日志表 服务类
- * </p>
+ *  服务层。
  *
- * @author Jin Qi
- * @since 2023-05-25
+ * @author heartisan
+ * @since 2023-11-29
  */
 public interface ErrorLogDAO extends IService<ErrorLogDMO> {
 

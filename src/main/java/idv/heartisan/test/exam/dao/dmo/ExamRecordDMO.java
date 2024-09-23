@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  *  实体类。
  *
  * @author heartisan
- * @since 2023-11-26
+ * @since 2023-11-29
  */
 @Accessors(chain = true)
 @Data(staticConstructor = "create")

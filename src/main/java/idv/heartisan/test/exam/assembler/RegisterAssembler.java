@@ -1,8 +1,8 @@
 package idv.heartisan.test.exam.assembler;
 
-import idv.heartisan.test.exam.entity.Actor;
-import idv.heartisan.test.exam.entity.Student;
-import idv.heartisan.test.exam.entity.Teacher;
+import idv.heartisan.test.exam.domain.entity.Actor;
+import idv.heartisan.test.exam.domain.entity.Student;
+import idv.heartisan.test.exam.domain.entity.Teacher;
 import idv.heartisan.test.exam.enums.ActorTypeEnum;
 import idv.heartisan.test.exam.enums.GenderEnum;
 import idv.heartisan.test.exam.pojo.dto.req.RegisterDTO;

@@ -2,7 +2,7 @@ package idv.heartisan.test.exam.test.unit.service;
 
 import idv.heartisan.test.exam.dao.dmo.TeacherDMO;
 import idv.heartisan.test.exam.dao.mapper.TeacherDMOMapper;
-import idv.heartisan.test.exam.service.entity.TeacherService;
+import idv.heartisan.test.exam.domain.service.TeacherService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -37,9 +37,9 @@ public class TeacherEntityServiceUnitTest {
     public void isQualifiedTest() {
         TeacherDMO teacherDMO = TeacherDMO.create();
         teacherDMO.setCreatedDate(LocalDateTime.now().minusDays(1));
-        when(teacherDMOMapper.selectOne(any())).thenReturn(teacherDMO);
+        when(teacherDMOMapper.selectOneByEntityId(any())).thenReturn(teacherDMO);
         assertTrue(teacherService.isQualified("11"));
-        when(teacherDMOMapper.selectOne(any())).thenReturn(null);
+        when(teacherDMOMapper.selectOneByEntityId(any())).thenReturn(null);
         assertTrue(!teacherService.isQualified("11"));
     }
 

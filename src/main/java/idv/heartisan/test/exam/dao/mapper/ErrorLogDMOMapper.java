@@ -1,15 +1,13 @@
 package idv.heartisan.test.exam.dao.mapper;
 
+import com.mybatisflex.core.BaseMapper;
 import idv.heartisan.test.exam.dao.dmo.ErrorLogDMO;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * <p>
- * 错误日志表 Mapper 接口
- * </p>
+ *  映射层。
  *
- * @author Jin Qi
- * @since 2023-05-25
+ * @author heartisan
+ * @since 2023-11-29
  */
 public interface ErrorLogDMOMapper extends BaseMapper<ErrorLogDMO> {
 

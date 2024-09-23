@@ -2,7 +2,7 @@ package idv.heartisan.test.exam.assembler;
 
 import cn.hutool.crypto.digest.BCrypt;
 import idv.heartisan.test.exam.dao.dmo.ActorDMO;
-import idv.heartisan.test.exam.entity.Actor;
+import idv.heartisan.test.exam.domain.entity.Actor;
 import idv.heartisan.test.exam.utils.DozerUtil;
 
 /**

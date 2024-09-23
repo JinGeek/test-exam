@@ -1,7 +1,7 @@
 package idv.heartisan.test.exam.assembler;
 
 import idv.heartisan.test.exam.dao.dmo.QuestionDMO;
-import idv.heartisan.test.exam.entity.Question;
+import idv.heartisan.test.exam.domain.entity.Question;
 import idv.heartisan.test.exam.pojo.dto.req.QuestionCreationDTO;
 import idv.heartisan.test.exam.utils.DozerUtil;
 

@@ -1,6 +1,7 @@
 package idv.heartisan.test.exam.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
@@ -36,9 +37,14 @@ import java.util.List;
 @EnableSwagger2
 @EnableKnife4j
 public class Knife4jConfig {
+
+    @Value("${swagger.enabled:false}")
+    private boolean enabled;
+
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(enabled)
                 .useDefaultResponseMessages(false)
                 .apiInfo(apiInfo())
                 .select()

@@ -1,11 +1,11 @@
-package idv.heartisan.test.exam.service.entity;
+package idv.heartisan.test.exam.domain.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import idv.heartisan.test.exam.assembler.ExamAssembler;
 import idv.heartisan.test.exam.dao.dmo.ExamDMO;
 import idv.heartisan.test.exam.dao.mapper.ExamDMOMapper;
-import idv.heartisan.test.exam.entity.Exam;
+import idv.heartisan.test.exam.domain.entity.Exam;
 import idv.heartisan.test.exam.enums.ErrorEnum;
 import idv.heartisan.test.exam.exceptions.BizException;
 import lombok.extern.slf4j.Slf4j;

@@ -7,12 +7,11 @@ import idv.heartisan.test.exam.pojo.dto.req.FakeExaminationDTO;
 import idv.heartisan.test.exam.pojo.dto.req.QuestionCreationDTO;
 import idv.heartisan.test.exam.pojo.dto.resp.ExamScoreDTO;
 import idv.heartisan.test.exam.pojo.dto.resp.ExaminationResultDTO;
-import idv.heartisan.test.exam.service.app.ExamAppService;
+import idv.heartisan.test.exam.service.ExamAppService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

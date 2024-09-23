@@ -1,17 +1,17 @@
-package idv.heartisan.test.exam.service.app;
+package idv.heartisan.test.exam.service;
 
-import idv.heartisan.test.exam.entity.Actor;
-import idv.heartisan.test.exam.entity.Student;
-import idv.heartisan.test.exam.entity.Teacher;
+import idv.heartisan.test.exam.domain.entity.Actor;
+import idv.heartisan.test.exam.domain.entity.Student;
+import idv.heartisan.test.exam.domain.entity.Teacher;
 import idv.heartisan.test.exam.enums.ActorTypeEnum;
 import idv.heartisan.test.exam.enums.ErrorEnum;
 import idv.heartisan.test.exam.exceptions.BizException;
 import idv.heartisan.test.exam.pojo.R;
 import idv.heartisan.test.exam.assembler.RegisterAssembler;
 import idv.heartisan.test.exam.pojo.dto.req.RegisterDTO;
-import idv.heartisan.test.exam.service.entity.ActorService;
-import idv.heartisan.test.exam.service.entity.StudentService;
-import idv.heartisan.test.exam.service.entity.TeacherService;
+import idv.heartisan.test.exam.domain.service.ActorService;
+import idv.heartisan.test.exam.domain.service.StudentService;
+import idv.heartisan.test.exam.domain.service.TeacherService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Triple;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package idv.heartisan.test.exam.assembler;
 
 import idv.heartisan.test.exam.dao.dmo.ExamRecordDMO;
-import idv.heartisan.test.exam.entity.ExamRecord;
+import idv.heartisan.test.exam.domain.entity.ExamRecord;
 import idv.heartisan.test.exam.pojo.dto.req.FakeExaminationDTO;
 import idv.heartisan.test.exam.pojo.dto.resp.ExamScoreDTO;
 import idv.heartisan.test.exam.utils.DozerUtil;

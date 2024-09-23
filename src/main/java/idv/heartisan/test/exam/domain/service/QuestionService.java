@@ -1,11 +1,11 @@
-package idv.heartisan.test.exam.service.entity;
+package idv.heartisan.test.exam.domain.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import idv.heartisan.test.exam.assembler.QuestionAssembler;
 import idv.heartisan.test.exam.dao.dmo.QuestionDMO;
 import idv.heartisan.test.exam.dao.mapper.QuestionDMOMapper;
-import idv.heartisan.test.exam.entity.Question;
+import idv.heartisan.test.exam.domain.entity.Question;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

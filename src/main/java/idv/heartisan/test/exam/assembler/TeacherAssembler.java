@@ -1,7 +1,7 @@
 package idv.heartisan.test.exam.assembler;
 
 import idv.heartisan.test.exam.dao.dmo.TeacherDMO;
-import idv.heartisan.test.exam.entity.Teacher;
+import idv.heartisan.test.exam.domain.entity.Teacher;
 import idv.heartisan.test.exam.utils.DozerUtil;
 
 /**
