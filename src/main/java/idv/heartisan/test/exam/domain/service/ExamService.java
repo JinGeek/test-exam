@@ -1,8 +1,7 @@
 package idv.heartisan.test.exam.domain.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import idv.heartisan.test.exam.assembler.ExamAssembler;
+import idv.heartisan.test.exam.dao.def.ExamTableDef;
 import idv.heartisan.test.exam.dao.dmo.ExamDMO;
 import idv.heartisan.test.exam.dao.mapper.ExamDMOMapper;
 import idv.heartisan.test.exam.domain.entity.Exam;
@@ -30,10 +29,7 @@ public class ExamService {
     private ExamDMOMapper examDMOMapper;
 
     public BigInteger newExam(Exam exam) {
-        LambdaQueryWrapper<ExamDMO> condition = new QueryWrapper<ExamDMO>()
-                .lambda()
-                .eq(ExamDMO::getName, exam.getName());
-        ExamDMO examDMO = examDMOMapper.selectOne(condition);
+        ExamDMO examDMO = examDMOMapper.selectOneByCondition(ExamTableDef.EXAM_D_M_O.NAME.eq(exam.getName()));
         if (examDMO != null) {
             throw new BizException(ErrorEnum.EXAM_NAME_DUPLICATION);
         }
@@ -43,7 +39,7 @@ public class ExamService {
     }
 
     public Exam getExamById(Long examId) {
-        ExamDMO examDMO = examDMOMapper.selectById(examId);
+        ExamDMO examDMO = examDMOMapper.selectOneById(examId);
         if (examDMO == null) {
             throw new BizException(ErrorEnum.EXAM_ID_INVALID);
         }

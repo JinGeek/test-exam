@@ -1,7 +1,5 @@
 package idv.heartisan.test.exam.domain.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import idv.heartisan.test.exam.assembler.ExamRecordAssembler;
 import idv.heartisan.test.exam.dao.dmo.ExamRecordDMO;
 import idv.heartisan.test.exam.dao.mapper.ExamRecordDMOMapper;
@@ -13,6 +11,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+
+import static idv.heartisan.test.exam.dao.def.ExamRecordTableDef.EXAM_RECORD_D_M_O;
 
 /**
  * @author Jin Qi
@@ -28,10 +28,7 @@ public class ExamRecordService {
     private ExamRecordDMOMapper examRecordDMOMapper;
 
     public boolean isExamined(String stuNum) {
-        LambdaQueryWrapper<ExamRecordDMO> condition = new QueryWrapper<ExamRecordDMO>()
-                .lambda()
-                .eq(ExamRecordDMO::getStuNum, stuNum);
-        ExamRecordDMO examRecordDMO = examRecordDMOMapper.selectOne(condition);
+        ExamRecordDMO examRecordDMO = examRecordDMOMapper.selectOneByCondition(EXAM_RECORD_D_M_O.STU_NUM.eq(stuNum));
         return examRecordDMO != null;
     }
 
@@ -42,11 +39,7 @@ public class ExamRecordService {
     }
 
     public ExamRecord getByStuNumAndExamId(String stuNum, Long examId) {
-        LambdaQueryWrapper<ExamRecordDMO> condition = new QueryWrapper<ExamRecordDMO>()
-                .lambda()
-                .eq(ExamRecordDMO::getStuNum, stuNum)
-                .eq(ExamRecordDMO::getExamId, examId);
-        ExamRecordDMO examRecordDMO = examRecordDMOMapper.selectOne(condition);
+        ExamRecordDMO examRecordDMO = examRecordDMOMapper.selectOneByCondition(EXAM_RECORD_D_M_O.STU_NUM.eq(stuNum).and(EXAM_RECORD_D_M_O.EXAM_ID.eq(examId)));
         if (examRecordDMO == null) {
             return null;
         }

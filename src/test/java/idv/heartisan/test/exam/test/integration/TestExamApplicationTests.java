@@ -39,14 +39,14 @@ class TestExamApplicationTests {
 				"  \"age\": \"22\",\n" +
 				"  \"gender\": \"MAN\"\n" +
 				"}";
-		log.info("total actor count: {}", actorDMOMapper.selectCount(null));
+		log.info("total actor count: {}", actorDMOMapper.selectCountByCondition(null));
 		MvcResult result = mockMvc.perform(
 				post("/actor/register").contentType(MediaType.APPLICATION_JSON).content(requestBody)
 				.accept(MediaType.APPLICATION_JSON)
 		).andExpect(jsonPath("$.code").value("2-00"))
 		.andReturn();
 		log.info("result: {}", result.getResponse().getContentAsString());
-		assertTrue(actorDMOMapper.selectCount(null) == 1, "注册未成功！");
+		assertTrue(actorDMOMapper.selectCountByCondition(null) == 1, "注册未成功！");
 	}
 
 	@DisplayName("用户注册2")
@@ -61,14 +61,14 @@ class TestExamApplicationTests {
 				"  \"age\": \"22\",\n" +
 				"  \"gender\": \"MAN\"\n" +
 				"}";
-		log.info("total actor count: {}", actorDMOMapper.selectCount(null));
+		log.info("total actor count: {}", actorDMOMapper.selectCountByCondition(null));
 		MvcResult result = mockMvc.perform(
 						post("/actor/register").contentType(MediaType.APPLICATION_JSON).content(requestBody)
 								.accept(MediaType.APPLICATION_JSON)
 				).andExpect(jsonPath("$.code").value("2-00"))
 				.andReturn();
 		log.info("result: {}", result.getResponse().getContentAsString());
-		assertTrue(actorDMOMapper.selectCount(null) == 2, "注册未成功！");
+		assertTrue(actorDMOMapper.selectCountByCondition(null) == 2, "注册未成功！");
 	}
 
 }

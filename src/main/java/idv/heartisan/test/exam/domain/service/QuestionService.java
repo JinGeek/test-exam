@@ -1,8 +1,7 @@
 package idv.heartisan.test.exam.domain.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import idv.heartisan.test.exam.assembler.QuestionAssembler;
+import idv.heartisan.test.exam.dao.def.QuestionTableDef;
 import idv.heartisan.test.exam.dao.dmo.QuestionDMO;
 import idv.heartisan.test.exam.dao.mapper.QuestionDMOMapper;
 import idv.heartisan.test.exam.domain.entity.Question;
@@ -45,10 +44,7 @@ public class QuestionService {
      * @return
      */
     public List<Question> queryByExamId(Long examId) {
-        LambdaQueryWrapper<QuestionDMO> condition = new QueryWrapper<QuestionDMO>()
-                .lambda()
-                .eq(QuestionDMO::getExamId, examId);
-        List<QuestionDMO> questionDMOList = questionDMOMapper.selectList(condition);
+        List<QuestionDMO> questionDMOList = questionDMOMapper.selectListByCondition(QuestionTableDef.QUESTION_D_M_O.EXAM_ID.eq(examId));
 
         List<Question> questionList = new ArrayList<>();
         questionDMOList.forEach(o -> questionList.add(QuestionAssembler.convert(o)));

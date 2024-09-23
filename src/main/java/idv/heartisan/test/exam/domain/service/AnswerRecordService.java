@@ -1,8 +1,7 @@
 package idv.heartisan.test.exam.domain.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import idv.heartisan.test.exam.assembler.AnswerRecordAssembler;
+import idv.heartisan.test.exam.dao.def.AnswerRecordTableDef;
 import idv.heartisan.test.exam.dao.dmo.AnswerRecordDMO;
 import idv.heartisan.test.exam.dao.mapper.AnswerRecordDMOMapper;
 import idv.heartisan.test.exam.domain.entity.AnswerRecord;
@@ -36,10 +35,7 @@ public class AnswerRecordService {
     }
 
     public List<AnswerRecord> queryByExamRecordId(Long examRecordId) {
-        LambdaQueryWrapper<AnswerRecordDMO> condition = new QueryWrapper<AnswerRecordDMO>()
-                .lambda()
-                .eq(AnswerRecordDMO::getExamRecordId, examRecordId);
-        List<AnswerRecordDMO> answerRecordDMOList = answerRecordDMOMapper.selectList(condition);
+        List<AnswerRecordDMO> answerRecordDMOList = answerRecordDMOMapper.selectListByCondition(AnswerRecordTableDef.ANSWER_RECORD_D_M_O.EXAM_RECORD_ID.eq(examRecordId));
         List<AnswerRecord> answerRecordList = new ArrayList<>();
         for (AnswerRecordDMO answerRecordDMO : answerRecordDMOList) {
             AnswerRecord answerRecord = AnswerRecordAssembler.convert(answerRecordDMO);

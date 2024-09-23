@@ -1,8 +1,7 @@
 package idv.heartisan.test.exam.domain.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import idv.heartisan.test.exam.assembler.StudentAssembler;
+import idv.heartisan.test.exam.dao.def.StudentTableDef;
 import idv.heartisan.test.exam.dao.dmo.StudentDMO;
 import idv.heartisan.test.exam.dao.mapper.StudentDMOMapper;
 import idv.heartisan.test.exam.domain.entity.Student;
@@ -29,10 +28,7 @@ public class StudentService {
     }
 
     public boolean isQualified(String stuNum) {
-        LambdaQueryWrapper<StudentDMO> condition = new QueryWrapper<StudentDMO>()
-                .lambda()
-                .eq(StudentDMO::getStuNum, stuNum);
-        StudentDMO studentDMO = studentDMOMapper.selectOne(condition);
+        StudentDMO studentDMO = studentDMOMapper.selectOneByCondition(StudentTableDef.STUDENT_D_M_O.STU_NUM.eq(stuNum));
         if (studentDMO == null) {
             return false;
         }

@@ -1,7 +1,6 @@
 package idv.heartisan.test.exam.domain.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import idv.heartisan.test.exam.dao.def.ActorTableDef;
 import idv.heartisan.test.exam.dao.dmo.ActorDMO;
 import idv.heartisan.test.exam.dao.mapper.ActorDMOMapper;
 import idv.heartisan.test.exam.domain.entity.Actor;
@@ -39,10 +38,7 @@ public class ActorService {
             throw new BizException(ErrorEnum.OBJECT_NOT_NULL);
         }
 
-        LambdaQueryWrapper<ActorDMO> condition = new QueryWrapper<ActorDMO>()
-                .lambda()
-                .eq(ActorDMO::getPhone, actor.getPhone());
-        Long count = actorDMOMapper.selectCount(condition);
+        Long count = actorDMOMapper.selectCountByCondition(ActorTableDef.ACTOR_D_M_O.PHONE.eq(actor.getPhone()));
         if (count > 0) {
             log.error("手机号重复: {}", actor.getPhone());
             throw new BizException(ErrorEnum.PHONE_NUM_DUPLICATION);
